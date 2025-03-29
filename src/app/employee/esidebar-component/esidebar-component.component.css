@@ -1,0 +1,129 @@
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    z-index: 1000; /* Ensures it's above content */
+}
+
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+.logo img {
+    width: 80px;
+    display: block;
+    margin: 20px auto;
+}
+
+.menu {
+    margin-top: 90px;
+    padding-left: 0;
+}
+
+.menu li {
+    list-style: none;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background 0.3s ease-in-out;
+}
+
+.menu li:hover {
+    background: #f5f5f5;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+}
+
+.icon {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.sidebar.closed .text {
+    display: none;
+}
+
+.badge {
+    background: blue;
+    color: white;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: auto;
+}
+
+.separator {
+    font-size: 12px;
+    color: gray;
+    margin-top: 15px;
+    padding-left: 10px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 12px;
+    color: gray;
+}
+
+/* Toggle Button - Keep in Place */
+.toggle-btn {
+    position: absolute;
+    top: 5px;
+    left: 260px;
+    background:transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: left 0.3s ease-in-out;
+    z-index: 1100; /* Ensures it's above everything */
+}
+
+.toggle-btn:hover{
+    background-color:rgb(155, 154, 154);
+}
+
+.sidebar.closed + .toggle-btn {
+    left: 20px;
+}
+
+.logout-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background: red;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background: darkred;
+}
+
+/* Main Content - Stay Fixed */
+.main-content {
+    margin-left: 0; /* Ensure it does not shift */
+    transition: margin-left 0.3s ease-in-out;
+    padding: 20px;
+}
+
+.sidebar.open ~ .main-content {
+    margin-left: 0; /* Keep content fixed */
+}

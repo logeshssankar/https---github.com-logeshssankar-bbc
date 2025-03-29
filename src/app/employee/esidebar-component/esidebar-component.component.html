@@ -1,0 +1,42 @@
+<div class="sidebar" [class.closed]="!isOpen">
+    <!-- Logo -->
+    <div class="logo">
+        <img src="../../../..//public/image/icon.png" alt="Logo"/>
+    </div>
+
+    <!-- Menu Items -->
+    <ul class="menu">
+        <li>
+            <a href="/userdashboard">
+                <span class="icon"></span> <span class="text" *ngIf="isOpen">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/transactions" routerLinkActive="active">
+                <span class="icon"></span> <span class="text" *ngIf="isOpen">Transactions</span>
+                <span class="badge" *ngIf="isOpen"></span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon"></span> <span class="text" *ngIf="isOpen">Invoices</span>
+            </a>
+        </li>
+        <li>
+            <a href="/customers">
+                <span class="icon"></span> <span class="text" *ngIf="isOpen">Customers</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Logout Button -->
+    <button class="logout-btn" *ngIf="isOpen" (click)="logout()">Logout</button>
+
+    <!-- Footer -->
+    <div class="footer" *ngIf="isOpen">
+    
+    </div>
+</div>
+
+<!-- Toggle Button (Outside Sidebar) -->
+<button class="toggle-btn" (click)="toggleSidebar()">☰</button>

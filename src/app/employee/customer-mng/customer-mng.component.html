@@ -1,0 +1,128 @@
+<app-esidebar-component></app-esidebar-component>
+<div class="top-bar">
+    <!-- Export Button -->
+    <input type="file" #fileInput (change)="uploadFile($event)" hidden>
+<button (click)="fileInput.click()" class="upload-btn">
+  <i class="fas fa-upload"></i> Upload File
+</button>
+
+    
+
+    <!-- Search Input -->
+    <input 
+      type="text" 
+      class="search-input" 
+      placeholder="Search Invoice" 
+      [(ngModel)]="searchQuery">
+
+    <!-- Add User Button -->
+    <button class="add-user-btn" (click)="addCustomer()">ADD CUSTOMER</button>
+
+</div>
+<!-- Update Form Modal -->
+<div *ngIf="selectedCustomer" class="modal-overlay">
+  <div class="modal">
+    <h3 style="text-align: center;">Update Customer</h3>
+    
+    <label>Name: <input [(ngModel)]="selectedCustomer.name"></label>
+    <label>Email: <input [(ngModel)]="selectedCustomer.email"></label>
+    <label>Phone: <input [(ngModel)]="selectedCustomer.phone_number"></label>
+    <label>Location: <input [(ngModel)]="selectedCustomer.location"></label>
+    <label>Units Consumed: <input [(ngModel)]="selectedCustomer.unit_consumed"></label>
+    <label>Bill Amount: <input [(ngModel)]="selectedCustomer.bill_amount"></label>
+
+    <!-- 📅 Date Picker for Due Date -->
+    <label>Due Date:
+      <input type="date" [(ngModel)]="selectedCustomer.bill_due_date">
+    </label>
+
+    <!-- ✅ Dropdown for Status -->
+    <label>Status:
+      <select [(ngModel)]="selectedCustomer.payment_status">
+        <option value="Paid">Paid</option>
+        <option value="Unpaid">Unpaid</option>
+      </select>
+    </label>
+
+    <div class="modal-actions">
+      <button (click)="updateCustomer()">Save</button>
+      <button (click)="closeUpdateForm()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Table with Update Button -->
+<table class="customer-table">
+  <thead>
+    <tr>
+      <th>Customer ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Location</th>
+      <th>Units Consumed</th>
+      <th>Bill Amount</th>
+      <th>Due Date</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{ customer.customer_id }}</td>
+      <td>{{ customer.name }}</td>
+      <td>{{ customer.email }}</td>
+      <td>{{ customer.phone_number }}</td>
+      <td>{{ customer.location }}</td>
+      <td>{{ customer.unit_consumed }}</td>
+      <td>{{ customer.bill_amount }}</td>
+      <td>{{ customer.bill_due_date | date }}</td>
+      <td>
+        <span [ngClass]="{'paid': customer.payment_status === 'Paid', 'unpaid': customer.payment_status === 'Unpaid'}">
+          {{ customer.payment_status }}
+        </span>
+      </td>
+      <td>
+        <button class="action-btn update" (click)="selectCustomerForUpdate(customer)">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="action-btn delete" (click)="deleteCustomer(customer.customer_id)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Add Customer Modal (Shows when selectedCustomer is empty) -->
+<div *ngIf="selectedCustomer && !selectedCustomer.customer_id" class="modal-overlay">
+  <div class="modal">
+    <h3 style="text-align: center;">Add Customer</h3>
+    
+    <label>Name: <input [(ngModel)]="selectedCustomer.name"></label>
+    <label>Email: <input [(ngModel)]="selectedCustomer.email"></label>
+    <label>Phone: <input [(ngModel)]="selectedCustomer.phone_number"></label>
+    <label>Location: <input [(ngModel)]="selectedCustomer.location"></label>
+    <label>Units Consumed: <input type="number" [(ngModel)]="selectedCustomer.unit_consumed"></label>
+    <label>Bill Amount: <input type="number" [(ngModel)]="selectedCustomer.bill_amount"></label>
+
+    <!-- 📅 Date Picker for Due Date -->
+    <label>Due Date:
+      <input type="date" [(ngModel)]="selectedCustomer.bill_due_date">
+    </label>
+
+    <!-- ✅ Dropdown for Status -->
+    <label>Status:
+      <select [(ngModel)]="selectedCustomer.payment_status">
+        <option value="Paid">Paid</option>
+        <option value="Unpaid">Unpaid</option>
+      </select>
+    </label>
+
+    <div class="modal-actions">
+      <button (click)="saveCustomer()">Save</button>
+      <button (click)="closeUpdateForm()">Cancel</button>
+    </div>
+  </div>
+</div>

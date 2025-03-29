@@ -1,0 +1,111 @@
+/* Background Styling */
+.bg {
+  background: url('../../../../public/image/bg.jpg') no-repeat center center/cover;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Adding Blur Effect */
+.bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+/* Login Card */
+.login-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(0 px);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Headings */
+h2 {
+  color: white;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* Input Fields */
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Input Focus Effect */
+input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Verify Button */
+.verify-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.verify-btn:hover {
+  background: #43a047;
+  transform: scale(1.05);
+}
+
+/* OTP Button */
+.otp-btn {
+  background: #2196f3;
+  color: white;
+}
+
+.otp-btn:hover {
+  background: #1e88e5;
+  transform: scale(1.05);
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
