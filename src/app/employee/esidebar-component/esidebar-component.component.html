@@ -1,7 +1,8 @@
 <div class="sidebar" [class.closed]="!isOpen">
-    <!-- Logo -->
+    <!-- Logo & Company Name -->
     <div class="logo">
         <img src="../../../..//public/image/icon.png" alt="Logo"/>
+        <h3 class="company-name" *ngIf="isOpen">Bharat Bijili Corporation</h3>
     </div>
 
     <!-- Menu Items -->
@@ -12,13 +13,18 @@
             </a>
         </li>
         <li>
+            <a href="/billing">
+                <span class="icon"></span> <span class="text" *ngIf="isOpen">Billing</span>
+            </a>
+        </li>
+        <li>
             <a routerLink="/transactions" routerLinkActive="active">
                 <span class="icon"></span> <span class="text" *ngIf="isOpen">Transactions</span>
                 <span class="badge" *ngIf="isOpen"></span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/invoices">
                 <span class="icon"></span> <span class="text" *ngIf="isOpen">Invoices</span>
             </a>
         </li>
@@ -31,11 +37,6 @@
 
     <!-- Logout Button -->
     <button class="logout-btn" *ngIf="isOpen" (click)="logout()">Logout</button>
-
-    <!-- Footer -->
-    <div class="footer" *ngIf="isOpen">
-    
-    </div>
 </div>
 
 <!-- Toggle Button (Outside Sidebar) -->

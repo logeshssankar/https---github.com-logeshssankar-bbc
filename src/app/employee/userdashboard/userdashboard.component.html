@@ -33,7 +33,7 @@
         <strong>{{ userName ? userName : 'Guest' }}</strong>
         <span>ID: {{ userId ? userId : 'N/A' }}</span>
     </div>
-    <img src="../../../image/icons8-user-96.png" alt="User Profile">
+    <img src="../../../..//public/image/user.png" alt="User Profile">
 </div>
 
         <!-- <div class="profile">
@@ -46,12 +46,28 @@
     </div>
 </div>
 
+<div class="latest-customers">
+    <h3>Latest Customers</h3>
+    <ul>
+        <li *ngFor="let customer of latestCustomers">
+            <strong>{{ customer.name }}</strong> ({{ customer.email }})
+        </li>
+    </ul>
+</div>
+
 <!-- Main Content -->
 <div class="main-content">
 </div>
 
+<div class="chart-container">
+    <canvas #chartCanvas></canvas>
+  </div>
+  
+  <div class="piechart-container">
+    <canvas #pieChartCanvas></canvas>  
+</div>
 
-<canvas id="myChart"></canvas>
+  
 
 
 

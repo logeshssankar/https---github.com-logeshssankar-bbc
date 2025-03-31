@@ -203,12 +203,21 @@
 
 /* Chart Section */
 .chart-container {
-    width: 90%;
-    margin: 30px auto;
-    background: #fff;
+    width: 100%;  /* Make it responsive */
+    max-width: 600px; /* Adjust size */
+    height: 300px;
+    margin: 20px auto;
+    background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block; /* Fix any issues with hidden canvas */
 }
 
 .chart-container h3 {
@@ -221,10 +230,10 @@
     height: 300px;
 }
 
-canvas {
+/* canvas {
     width: 100% !important;
     height: 100% !important;
-}
+} */
 
 
 
@@ -233,7 +242,7 @@ canvas {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 600px;
+    max-width: 300px;
     margin: auto;
   }
   
@@ -251,4 +260,46 @@ canvas {
   .card-body {
     padding: 10px;
   }
-  
+  .piechart-container {
+    width: 400px; 
+    height: 400px; 
+    /* margin: 20px auto; */
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+
+.latest-customers {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    width: 220px;
+}
+
+.latest-customers ul {
+    list-style: none;
+    padding: 0;
+}
+
+.latest-customers li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.latest-customers li:last-child {
+    border-bottom: none;
+}
+

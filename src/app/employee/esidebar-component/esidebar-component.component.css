@@ -29,7 +29,7 @@
 
 .menu li {
     list-style: none;
-    padding: 12px;
+    padding: 7px;
     border-radius: 8px;
     transition: background 0.3s ease-in-out;
 }
@@ -127,3 +127,13 @@
 .sidebar.open ~ .main-content {
     margin-left: 0; /* Keep content fixed */
 }
+
+.company-name {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 20px;
+    white-space-collapse: preserve;
+    font-weight: bold;
+    margin-top: 10px;
+}
+

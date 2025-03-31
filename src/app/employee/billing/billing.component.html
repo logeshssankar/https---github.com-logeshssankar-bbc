@@ -1,0 +1,91 @@
+<app-esidebar-component></app-esidebar-component>
+
+<div class="dashboard-header">
+    <!-- Left Section: Sidebar Toggle & Title -->
+    <div class="left">
+        <!-- <button class="menu-toggle" (click)="toggleSidebar()">☰</button> -->
+        <h2 class="title" style="position: relative; left: 90px; bottom: 5px;">Billing</h2>
+
+    </div>
+
+    <!-- Middle Section: Search Bar -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search here...">
+        <button class="search-btn">🔍</button>
+    </div>
+
+    <!-- Right Section: Notifications, Messages, Profile -->
+    <div class="right">
+        <div class="icons">
+            <div class="icon">
+                <span class="badge yellow"></span> 🔔
+            </div>
+            <div class="icon">
+                <span class="badge green"></span> 💬
+            </div>
+            <div class="icon">
+                <span class="badge blue"></span> 📩
+            </div>
+        </div>
+
+        <!-- User Profile -->
+         <div class="profile">
+    <div class="user-info">
+        <strong>{{ userName ? userName : 'Guest' }}</strong>
+        <span>ID: {{ userId ? userId : 'N/A' }}</span>
+    </div>
+    <img src="../../../..//public/image/user.png" alt="User Profile"></div>
+    </div>
+</div>
+
+<div class="card-wrapper">
+  <div class="card-container">
+    <div class="image-container">
+      <img src="../../../..//public/image/generate.png" alt="Bill Icon">
+    </div>
+    <div class="button-container">
+      <button class="generate-button" (click)="openForm()">Generate Bill</button>
+    </div>
+  </div>
+
+<!-- FORM MODAL -->
+<div class="modal" *ngIf="isFormOpen">
+  <div class="modal-content">
+    <span class="close" (click)="closeForm()">&times;</span>
+    <h2>Generate Bill</h2>
+
+    <label>Customer ID:</label>
+    <input type="text" [(ngModel)]="billForm.controls['customerId'].value">
+    <button (click)="fetchCustomerDetails()">Fetch Details</button>
+
+    <label>Customer Name:</label>
+    <input type="text" [(ngModel)]="billForm.controls['customerName'].value" readonly>
+
+    <label>Units Consumed:</label>
+    <input type="text" [(ngModel)]="billForm.controls['unitConsumed'].value" readonly>
+
+    <label>Bill Amount:</label>
+    <input type="text" [(ngModel)]="billForm.controls['billAmount'].value" readonly>
+
+    <!-- <label>Bill Start Date:</label>
+    <input type="text" [(ngModel)]="billForm.controls['billingStart'].value" readonly>
+
+    <label>Bill End Date:</label>
+    <input type="text" [(ngModel)]="billForm.controls['billingEnd'].value" readonly> -->
+
+    <label>Bill Due Date:</label>
+    <input type="text" [(ngModel)]="billForm.controls['billDueDate'].value" readonly>
+
+    <button (click)="generateBill()">Confirm & Generate</button>
+  </div>
+</div>
+
+<!-- DISPLAY BILL DETAILS -->
+<div class="bill-summary" *ngIf="billDetails">
+  <h3>Bill Generated Successfully!</h3>
+  <p>Bill ID: {{ billDetails.billId }}</p>
+  <p>Customer: {{ billDetails.customer.name }}</p>
+  <p>Amount: {{ billDetails.finalAmount }}</p>
+  <p>Status: {{ billDetails.paymentStatus }}</p>
+</div>
+  
