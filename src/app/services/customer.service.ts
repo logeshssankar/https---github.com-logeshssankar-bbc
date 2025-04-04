@@ -6,11 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CustomerService  {
-  private apiUrl = 'http://localhost:9090/customer/all';  // Update this URL
+  private apiUrl = 'http://localhost:9090/customer/all';  
 
   constructor(private http: HttpClient) {}
 
   getLatestCustomers(count: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}?limit=${count}`);
+    return this.http.get<any[]>(`http://localhost:9090/customer/latest/${count}`);
   }
+  
 }

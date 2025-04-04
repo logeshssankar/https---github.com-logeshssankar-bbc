@@ -11,6 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './invoices.component.css'
 })
 export class InvoicesComponent  implements OnInit {
+payNow(arg0: any) {
+throw new Error('Method not implemented.');
+}
 
   invoices: any[] = [];
   searchText: string = '';

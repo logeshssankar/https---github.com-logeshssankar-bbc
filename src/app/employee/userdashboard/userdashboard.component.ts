@@ -17,13 +17,13 @@ export class UserdashboardComponent implements AfterViewInit, OnInit {
   @ViewChild('pieChartCanvas') pieChartCanvas!: ElementRef<HTMLCanvasElement>;
 
   pieChart: Chart | null = null;
-  chart: Chart | null = null;  // Store the chart instance
+  chart: Chart | null = null;  
 
   userId: string | null = '';
   userName: string | null = '';
 
   
-  latestCustomers: any[] = [];  // Store latest 7 customers
+  latestCustomers: any[] = [];  
 
 
   constructor(private authService: AuthService, private customerService: CustomerService ) {
@@ -34,8 +34,7 @@ export class UserdashboardComponent implements AfterViewInit, OnInit {
     this.loadUserDetails();
     this.createChart();
     this.createPieChart();
-    this.loadLatestCustomers(); // Fetch latest customers
-
+    this.loadLatestCustomers();
   }
 
   loadUserDetails() {
@@ -44,11 +43,12 @@ export class UserdashboardComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.createChart();
-      this.createPieChart();
-    }, 0);
-  }
+  setTimeout(() => {
+    this.createChart();
+    this.createPieChart();
+  }, 100); // Increase delay to 100ms or more
+}
+
 
   createChart() {
     if (!this.chartCanvas || !this.chartCanvas.nativeElement) {
@@ -166,7 +166,7 @@ createPieChart() {
 
 
 loadLatestCustomers() {
-  this.customerService.getLatestCustomers(7).subscribe({
+  this.customerService.getLatestCustomers(5).subscribe({
     next: (data: any[]) => {
       this.latestCustomers = data;
     },

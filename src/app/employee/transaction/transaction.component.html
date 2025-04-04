@@ -1,0 +1,28 @@
+<app-esidebar-component></app-esidebar-component>
+
+
+<h2>Transaction List</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Transaction ID</th>
+      <th>Bill ID</th>
+      <th>Customer ID</th>
+      <th>Amount Paid</th>
+      <th>Status</th>
+      <th>Payment Mode</th>
+      <th>Transaction Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let transaction of transactions">
+      <td>{{ transaction.transactionId }}</td>
+      <td>{{ transaction.billId }}</td>
+      <td>{{ transaction.customerId }}</td>
+      <td>{{ transaction.amountPaid | currency }}</td>
+      <td>{{ transaction.transactionStatus }}</td>
+      <td>{{ transaction.paymentMode }}</td>
+      <td>{{ transaction.transactionDate | date: 'short' }}</td>
+    </tr>
+  </tbody>
+</table>

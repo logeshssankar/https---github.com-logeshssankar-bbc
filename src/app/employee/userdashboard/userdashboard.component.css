@@ -206,7 +206,7 @@
     width: 100%;  /* Make it responsive */
     max-width: 600px; /* Adjust size */
     height: 300px;
-    margin: 20px auto;
+    margin: 60px auto;
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -217,7 +217,7 @@
 canvas {
     width: 100% !important;
     height: 100% !important;
-    display: block; /* Fix any issues with hidden canvas */
+    display: block; 
 }
 
 .chart-container h3 {
@@ -263,6 +263,7 @@ canvas {
   .piechart-container {
     width: 400px; 
     height: 400px; 
+    /* margin-bottom: 700px; */
     /* margin: 20px auto; */
     background: white;
     padding: 20px;

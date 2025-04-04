@@ -59,6 +59,7 @@
 
         <!-- Remove Button -->
         <div class="invoice-actions">
+            <button class="pay-btn" (click)="payNow(invoice.billId)">Pay Now</button>
             <button class="remove-btn" (click)="removeInvoice(invoice.billId)">Remove</button>
         </div>
     </div>

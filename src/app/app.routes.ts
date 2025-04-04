@@ -6,6 +6,7 @@ import { ELoginComponentComponent } from './employee/e-login-component/e-login-c
 import { CustomerMngComponent } from './employee/customer-mng/customer-mng.component';
 import { BillingComponent } from './employee/billing/billing.component';
 import { InvoicesComponent } from './employee/invoices/invoices.component';
+import { TransactionComponent } from './employee/transaction/transaction.component';
 
 export const routes: Routes = [
 
@@ -14,7 +15,8 @@ export const routes: Routes = [
     { path:'userdashboard',component:UserdashboardComponent},
     { path:'customers',component:CustomerMngComponent},
     { path:'billing',component:BillingComponent},
-    { path:'invoices',component:InvoicesComponent}
+    { path:'invoices',component:InvoicesComponent},
+    { path: 'transaction',component:TransactionComponent}
 ];
 
 

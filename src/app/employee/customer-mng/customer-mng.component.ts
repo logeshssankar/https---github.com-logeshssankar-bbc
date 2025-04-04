@@ -132,7 +132,7 @@ uploadFile(event: any) {
 
   this.http.post('http://localhost:9090/customer/upload', formData)
     .subscribe({
-      next: () => alert('File uploaded successfully!'),
+      next: (res:any) => alert('File uploaded successfully!'),
       error: err => console.error('Error uploading file:', err)
     });
 }

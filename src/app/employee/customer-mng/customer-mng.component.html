@@ -61,9 +61,9 @@
       <th>Phone</th>
       <th>Location</th>
       <th>Units Consumed</th>
-      <th>Bill Amount</th>
+      <!-- <th>Bill Amount</th>
       <th>Due Date</th>
-      <th>Status</th>
+      <th>Status</th> -->
       <th>Action</th>
     </tr>
   </thead>
@@ -75,13 +75,13 @@
       <td>{{ customer.phone_number }}</td>
       <td>{{ customer.location }}</td>
       <td>{{ customer.unit_consumed }}</td>
-      <td>{{ customer.bill_amount }}</td>
+      <!-- <td>{{ customer.bill_amount }}</td>
       <td>{{ customer.bill_due_date | date }}</td>
       <td>
         <span [ngClass]="{'paid': customer.payment_status === 'Paid', 'unpaid': customer.payment_status === 'Unpaid'}">
           {{ customer.payment_status }}
         </span>
-      </td>
+      </td> -->
       <td>
         <button class="action-btn update" (click)="selectCustomerForUpdate(customer)">
           <i class="fas fa-edit"></i>

@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-billing',
@@ -20,7 +21,9 @@ export class BillingComponent {
   billForm: FormGroup;
   billDetails: any = null;
 
-  constructor(private authService: AuthService,private http: HttpClient, private fb: FormBuilder ) {
+  constructor(private authService: AuthService,private http: HttpClient, private fb: FormBuilder,
+    private toastr: ToastrService
+   ) {
 
     this.billForm = this.fb.group({
       customerId: [''],
@@ -75,17 +78,24 @@ export class BillingComponent {
 
   generateBill() {
     const customerId = this.billForm.value.customerId;
-
+  
     this.http.post<any>(`http://localhost:9090/bills/generate/${customerId}`, {}).subscribe(
       (response) => {
-        this.billDetails = response; // Store generated bill details
-        alert('Bill Generated Successfully!');
+        this.billDetails = response;
+        this.toastr.success('Bill Generated Successfully!');
       },
       (error) => {
-        alert('Error generating bill!');
+        const errorMessage = error?.error?.message || error?.error || 'Error generating bill!';
+        
+        if (errorMessage.includes("Bill is already generated")) {
+          this.toastr.warning('Bill is already generated for this customer!');
+        } else {
+          this.toastr.error(errorMessage);
+        }
       }
     );
   }
+  
 
   ngOnInit() {
     this.loadUserDetails();
