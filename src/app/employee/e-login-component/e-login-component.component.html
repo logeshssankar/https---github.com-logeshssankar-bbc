@@ -1,10 +1,9 @@
 <div class="bg">
   <div class="container">
-    <!-- Login Form Card -->
+  
     <div class="login-card">
       <h2 class="text-center text-2xl font-bold text-gray-700 mb-4">Login</h2>
-
-      <!-- Step 1: Verify Employee ID & Email -->
+   
       <form *ngIf="step === 1" (ngSubmit)="verifyUser()">
         <label for="employeeId">Employee ID</label>
         <input type="text" id="employeeId" [(ngModel)]="employeeId" name="employeeId" required />
@@ -15,7 +14,6 @@
         <button type="submit" class="verify-btn">Verify</button>
       </form>
 
-      <!-- Step 2: Enter OTP -->
       <form *ngIf="step === 2" (ngSubmit)="loginWithOTP()">
         <label for="otp">Enter OTP</label>
         <div class="otp-container">

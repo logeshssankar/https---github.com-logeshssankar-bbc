@@ -1,7 +1,29 @@
 <app-esidebar-component></app-esidebar-component>
 
+<div class="dashboard-header">
+  <div class="left">
+      
+    <h2 class="transaction-title">Transactions</h2>
+  </div>
 
-<h2>Transaction List</h2>
+  <div class="search-bar">
+    <input type="text" placeholder="Search here..." [(ngModel)]="searchText">
+      <button class="search-btn">🔍</button>
+  </div>
+
+       <div class="profile">
+  <div class="user-info">
+      <strong>{{ userName ? userName : 'Guest' }}</strong>
+      <span>ID: {{ userId ? userId : 'N/A' }}</span>
+  </div>
+  <img src="../../../..//public/image/user.png" alt="User Profile">
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div>
+</div>
+
+
+<h2></h2>
+<div style="overflow-x: auto; padding: 20px; background-color: #fafafa; border-radius: 12px;">
 <table>
   <thead>
     <tr>
@@ -15,14 +37,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let transaction of transactions">
+    <tr *ngFor="let transaction of transactions | filterByCustomerId: searchText">
       <td>{{ transaction.transactionId }}</td>
-      <td>{{ transaction.billId }}</td>
-      <td>{{ transaction.customerId }}</td>
-      <td>{{ transaction.amountPaid | currency }}</td>
+      <td>{{ transaction.bill.billId }}</td>
+      <td>
+        {{ transaction.customer.customer_id || 'No customer found' }}
+      </td>
+      <td>{{ transaction.amountPaid | currency:'INR':'symbol-narrow'}}</td>
       <td>{{ transaction.transactionStatus }}</td>
       <td>{{ transaction.paymentMode }}</td>
       <td>{{ transaction.transactionDate | date: 'short' }}</td>
     </tr>
   </tbody>
 </table>
+</div>

@@ -1,49 +1,21 @@
 <app-esidebar-component></app-esidebar-component>
-<div class="dashboard-header">
-    <!-- Left Section: Sidebar Toggle & Title -->
+<div class="dashboard">
     <div class="left">
-        <!-- <button class="menu-toggle" (click)="toggleSidebar()">☰</button> -->
-        <h2 class="title" style="position: relative; left: 90px; bottom: 5px;">Dashboard</h2>
-
+        <h2 class="title">Dashboard</h2>
     </div>
-
-    <!-- Middle Section: Search Bar -->
-    <div class="search-bar">
-        <input type="text" placeholder="Search here...">
-        <button class="search-btn">🔍</button>
+<div>
+    <div class="center-title">
+        <h1 class="main-title">Bharat Bijili Corporation</h1>
     </div>
-
-    <!-- Right Section: Notifications, Messages, Profile -->
-    <div class="right">
-        <div class="icons">
-            <div class="icon">
-                <span class="badge yellow"></span> 🔔
-            </div>
-            <div class="icon">
-                <span class="badge green"></span> 💬
-            </div>
-            <div class="icon">
-                <span class="badge blue"></span> 📩
-            </div>
-        </div>
-
-        <!-- User Profile -->
+</div>
          <div class="profile">
     <div class="user-info">
         <strong>{{ userName ? userName : 'Guest' }}</strong>
         <span>ID: {{ userId ? userId : 'N/A' }}</span>
     </div>
     <img src="../../../..//public/image/user.png" alt="User Profile">
+    <button class="logout-btn" (click)="logout()">Logout</button>
 </div>
-
-        <!-- <div class="profile">
-            <div class="user-info">
-                <strong>Adam Jackson</strong>
-                <span>adamjackson</span>
-            </div>
-            <img src="../../../image/icons8-user-96.png" alt="User Profile">
-        </div> -->
-    </div>
 </div>
 
 <div class="latest-customers">
@@ -55,7 +27,6 @@
     </ul>
 </div>
 
-<!-- Main Content -->
 <div class="main-content">
 </div>
 

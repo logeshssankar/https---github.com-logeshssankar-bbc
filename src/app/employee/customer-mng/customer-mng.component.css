@@ -1,86 +1,199 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-.top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: white;
-    padding: 10px 15px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
+body {
+  background-color: #F2EFE7;
+}
+
+.top-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F2EFE7;
+  padding: 14px 35px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 40px;
+  margin-top: -10px;
+}
+
+.upload-section .upload-btn {
+  background: #F2EFE7;
+  border: 1px solid #9ACBD0;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  transition: 0.3s;
+  color: #006A71;
+}
+
+.upload-section .upload-btn i {
+  margin-right: 8px;
+}
+
+.upload-section {
+  margin-left: 100px;
+}
+
+.upload-section .upload-btn:hover {
+  background: #E0F5F5;
+}
+
+.search-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-section i {
+  position: absolute;
+  left: 28px;
+  color: #999;
+  font-size: 14px;
+}
+
+.search-section .search-input {
+  padding: 8px 15px 8px 30px;
+  border: 1px solid #9ACBD0;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 0px 20px;
+  outline: none;
+}
+
+.add-customer-section .add-user-btn,
+.add-user-btn {
+  background: #48A6A7;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.add-customer-section .add-user-btn:hover,
+.add-user-btn:hover {
+  background: #006A71;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-profile .user-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  text-align: right;
+}
+
+.user-profile img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.user-profile .logout-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #FF5252;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user-profile .logout-btn:hover {
+  background-color: #E53935;
 }
 
 .export-btn {
-    background: white;
-    border: 1px solid #dcdcdc;
-    padding: 8px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    transition: 0.3s;
+  background: #F2EFE7;
+  border: 1px solid #9ACBD0;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  transition: 0.3s;
+  color: #006A71;
 }
 
 .export-btn i {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
 .export-btn:hover {
-    background: #f1f1f1;
+  background: #E0F5F5;
 }
 
 .search-input {
-    flex-grow: 1;
-    padding: 8px 15px;
-    border: 1px solid #dcdcdc;
-    border-radius: 6px;
-    font-size: 14px;
-    margin: 0 10px;
-    outline: none;
+  padding: 8px 15px;
+  border: 1px solid #9ACBD0;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 0 20px;
+  outline: none;
 }
 
-.add-user-btn {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.3s;
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.add-user-btn:hover {
-    background: #0056b3;
+.search-container i {
+  position: absolute;
+  left: 30px;
+  color: #999;
+  font-size: 14px;
 }
 
-/* customer table */
+.search-container .search-input {
+  padding: 8px 15px 8px 35px;
+  border: 1px solid #9ACBD0;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.user-btn {
+  margin-right: 60px;
+}
 
 .customer-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
+  background: #ffffff;
   border-radius: 8px;
   overflow: hidden;
 }
 
-.customer-table th, .customer-table td {
+.customer-table th,
+.customer-table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 .customer-table th {
-  background: #f8f9fa;
+  background: #9ACBD0;
   font-weight: bold;
+  color: #003f42;
 }
 
 .customer-table tr:hover {
-  background: #f1f1f1;
+  background: #F2EFE7;
 }
 
 .action-btn {
@@ -92,7 +205,7 @@
 }
 
 .update {
-  color: #007bff;
+  color: #48A6A7;
 }
 
 .delete {
@@ -109,7 +222,6 @@
   font-weight: bold;
 }
 
-/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -118,33 +230,32 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
+  align-items: center;
+  justify-content: center;
   padding: 20px;
+  z-index: 1000;
 }
 
-/* Modal Box */
 .modal {
-  background: white;
+  background: #ffffff;
   padding: 18px;
   border-radius: 8px;
-  width: 300px; /* Reduced width for a smaller form */
+  width: 300px;
   max-width: 90%;
   margin-bottom: 39px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  text-align: left; 
+  text-align: left;
 }
 
-/* Form Labels */
 .modal label {
   display: block;
   margin: 8px 0;
   font-weight: bold;
-  font-size: 14px; /* Slightly smaller text */
+  font-size: 14px;
 }
 
-/* Input Fields */
-.modal input, .modal select {
+.modal input,
+.modal select {
   width: 100%;
   padding: 6px;
   margin-top: 4px;
@@ -153,7 +264,6 @@
   font-size: 14px;
 }
 
-/* Adjusted Buttons */
 .modal-actions {
   display: flex;
   justify-content: space-between;
@@ -169,11 +279,153 @@
 }
 
 .modal-actions button:first-child {
-  background: green;
+  background: #48A6A7;
   color: white;
+}
+
+.modal-actions button:first-child:hover {
+  background: #006A71;
 }
 
 .modal-actions button:last-child {
   background: red;
   color: white;
+}
+
+.profile-card {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  z-index: 500;
+  position: relative;
+}
+
+.card {
+  width: 320px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background: white;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.details {
+  text-align: left;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.edit-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: #48A6A7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #006A71;
+}
+
+.profile-card .card {
+  position: relative;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #006A71;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background-color: #004A4F;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  text-align: right;
+}
+
+.profile img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.pagination button {
+  background-color: #48A6A7;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: bold;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #006A71;
+  transform: translateY(-2px);
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pagination span {
+  font-weight: 500;
+  color: #333;
 }

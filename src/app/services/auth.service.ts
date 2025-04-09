@@ -14,10 +14,10 @@ export class AuthService {
     const url = `${this.baseUrl}/verify?employeeId=${employeeId}&employeeMail=${employeeMail}`;
     return this.http.post<any>(url, {}, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(
       tap(response => {
-        console.log("Full API Response:", response); // Debugging
+        console.log("Full API Response:", response); 
   
         if (response && response.empObj) {
-          console.log("Extracted empObj:", response.empObj); // Debugging
+          console.log("Extracted empObj:", response.empObj); 
   
           localStorage.setItem('userId', response.empObj.employeeId.toString());
           localStorage.setItem('userName', response.empObj.employeeName);

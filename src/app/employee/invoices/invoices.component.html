@@ -1,44 +1,27 @@
 <app-esidebar-component></app-esidebar-component>
-
 <div class="dashboard-header">
-    <!-- Left Section: Sidebar Toggle & Title -->
+ 
     <div class="left">
-        <!-- <button class="menu-toggle" (click)="toggleSidebar()">☰</button> -->
         <h2 class="title" style="position: relative; left: 90px; bottom: 5px;">Invoices</h2>
-
+  
     </div>
-
-    <!-- Middle Section: Search Bar -->
+  
     <div class="search-bar">
-        <input type="text" placeholder="Search here...">
+        <input type="text" placeholder="Search here..." [(ngModel)]="searchText">
         <button class="search-btn">🔍</button>
     </div>
 
-    <!-- Right Section: Notifications, Messages, Profile -->
-    <div class="right">
-        <div class="icons">
-            <div class="icon">
-                <span class="badge yellow"></span> 🔔
-            </div>
-            <div class="icon">
-                <span class="badge green"></span> 💬
-            </div>
-            <div class="icon">
-                <span class="badge blue"></span> 📩
-            </div>
-        </div>
-
-        <!-- User Profile -->
          <div class="profile">
     <div class="user-info">
         <strong>{{ userName ? userName : 'Guest' }}</strong>
         <span>ID: {{ userId ? userId : 'N/A' }}</span>
     </div>
     <img src="../../../..//public/image/user.png" alt="User Profile">
-</div>
-</div>
-</div>
-<!-- Invoice Cards Container -->
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+  </div>
+
+
 <div class="invoice-container">
     <div class="invoice-card" *ngFor="let invoice of filteredInvoices()">
         <div class="invoice-header">
@@ -48,6 +31,7 @@
 
         <div class="invoice-details">
             <p><strong>Customer:</strong> {{ invoice.customerName }}</p>
+            <p><strong>Customer ID:</strong> {{ invoice.customerId }}</p>
             <p><strong>Email:</strong> {{ invoice.customerEmail }}</p>
             <p><strong>Units Consumed:</strong> {{ invoice.unitConsumed }}</p>
             <p><strong>Bill Amount:</strong> ₹{{ invoice.billAmount }}</p>
@@ -57,10 +41,35 @@
             <p><strong>Due Date:</strong> {{ invoice.billDueDate }}</p>
         </div>
 
-        <!-- Remove Button -->
         <div class="invoice-actions">
-            <button class="pay-btn" (click)="payNow(invoice.billId)">Pay Now</button>
-            <button class="remove-btn" (click)="removeInvoice(invoice.billId)">Remove</button>
+            <button class="pay-btn" *ngIf="invoice.paymentStatus !== 'Paid'" (click)="payNow(invoice.billId)">Pay Now</button>
+            <button class="remove-btn" *ngIf="false" (click)="removeInvoice(invoice.billId)">Remove</button>
         </div>
     </div>
+</div>
+
+<div class="payment-modal" *ngIf="showPaymentForm">
+  <div class="payment-form">
+    <h3>Payment for Invoice #{{ selectedInvoice?.billId }}</h3>
+    <form (ngSubmit)="submitPayment()">
+      <label>Amount: ₹{{ selectedInvoice?.finalAmount }}</label><br>
+
+      <label>Payment Mode:</label>
+      <select [(ngModel)]="paymentData.paymentMode" name="paymentMode" required (change)="onPaymentModeChange()">
+        <option value="CASH">Cash</option>
+        <option value="CREDIT_CARD">Credit Card</option>
+        <option value="DEBIT_CARD">Debit Card</option>
+        <option value="UPI">UPI</option>
+      </select><br>
+
+      <label>Discount: ₹{{ calculateDiscount() }}</label><br>
+      <label>Amount to Pay: ₹{{ paymentData.amountPaid }}</label><br>
+      
+      <label *ngIf="paymentData.paymentMode !== 'CASH'">Reference (Card No / UPI ID):</label>
+      <input *ngIf="paymentData.paymentMode !== 'CASH'" type="text" [(ngModel)]="paymentData.paymentReference" name="paymentReference" required /><br>
+
+      <button type="submit">Pay</button>
+      <button type="button" (click)="cancelPayment()">Cancel</button>
+    </form>
+  </div>
 </div>

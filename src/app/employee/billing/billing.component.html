@@ -1,41 +1,18 @@
 <app-esidebar-component></app-esidebar-component>
 
 <div class="dashboard-header">
-    <!-- Left Section: Sidebar Toggle & Title -->
-    <div class="left">
-        <!-- <button class="menu-toggle" (click)="toggleSidebar()">☰</button> -->
-        <h2 class="title" style="position: relative; left: 90px; bottom: 5px;">Billing</h2>
+  <div class="left">
+      <h2 class="title" style="position: relative; left: 90px; bottom: 5px;">Billing</h2>
+  </div>
+       <div class="profile">
+  <div class="user-info">
+      <strong>{{ userName ? userName : 'Guest' }}</strong>
+      <span>ID: {{ userId ? userId : 'N/A' }}</span>
+  </div>
+  <img src="../../../..//public/image/user.png" alt="User Profile">
 
-    </div>
-
-    <!-- Middle Section: Search Bar -->
-    <div class="search-bar">
-        <input type="text" placeholder="Search here...">
-        <button class="search-btn">🔍</button>
-    </div>
-
-    <!-- Right Section: Notifications, Messages, Profile -->
-    <div class="right">
-        <div class="icons">
-            <div class="icon">
-                <span class="badge yellow"></span> 🔔
-            </div>
-            <div class="icon">
-                <span class="badge green"></span> 💬
-            </div>
-            <div class="icon">
-                <span class="badge blue"></span> 📩
-            </div>
-        </div>
-
-        <!-- User Profile -->
-         <div class="profile">
-    <div class="user-info">
-        <strong>{{ userName ? userName : 'Guest' }}</strong>
-        <span>ID: {{ userId ? userId : 'N/A' }}</span>
-    </div>
-    <img src="../../../..//public/image/user.png" alt="User Profile"></div>
-    </div>
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div>
 </div>
 
 <div class="card-wrapper">
@@ -48,44 +25,52 @@
     </div>
   </div>
 
-<!-- FORM MODAL -->
 <div class="modal" *ngIf="isFormOpen">
-  <div class="modal-content">
+
+  <div class="modal-content horizontal-form">
     <span class="close" (click)="closeForm()">&times;</span>
-    <h2>Generate Bill</h2>
+    <h2 class="form-title">Generate Bill</h2>
 
-    <label>Customer ID:</label>
-    <input type="text" [(ngModel)]="billForm.controls['customerId'].value">
-    <button (click)="fetchCustomerDetails()">Fetch Details</button>
+    <form [formGroup]="billForm">
+      <div class="form-row">
+        <label>Customer ID:</label>
+        <input type="text" formControlName="customerId">
+        <button type="button" (click)="fetchCustomerDetails()">Fetch Name</button>
+      </div>
 
-    <label>Customer Name:</label>
-    <input type="text" [(ngModel)]="billForm.controls['customerName'].value" readonly>
+      <div class="form-row">
+        <label>Customer Name:</label>
+        <input type="text" formControlName="customerName" readonly>
+      </div>
 
-    <label>Units Consumed:</label>
-    <input type="text" [(ngModel)]="billForm.controls['unitConsumed'].value" readonly>
+      <div class="form-row">
+        <label>Units Consumed:</label>
+        <input type="number" formControlName="unitConsumed">
+      </div>
 
-    <label>Bill Amount:</label>
-    <input type="text" [(ngModel)]="billForm.controls['billAmount'].value" readonly>
+      <div class="form-row">
+        <label>Bill Amount (₹):</label>
+        <input type="text" formControlName="billAmount" readonly>
+      </div>
 
-    <!-- <label>Bill Start Date:</label>
-    <input type="text" [(ngModel)]="billForm.controls['billingStart'].value" readonly>
+      <div class="form-row">
+        <label>Billing Start:</label>
+        <input type="date" formControlName="billingStart">
+      </div>
 
-    <label>Bill End Date:</label>
-    <input type="text" [(ngModel)]="billForm.controls['billingEnd'].value" readonly> -->
+      <div class="form-row">
+        <label>Billing End:</label>
+        <input type="date" formControlName="billingEnd" readonly>
+      </div>
 
-    <label>Bill Due Date:</label>
-    <input type="text" [(ngModel)]="billForm.controls['billDueDate'].value" readonly>
+      <div class="form-row">
+        <label>Due Date:</label>
+        <input type="date" formControlName="billDueDate" readonly>
+      </div>
 
-    <button (click)="generateBill()">Confirm & Generate</button>
+      <div class="form-actions">
+        <button type="button" (click)="generateBill()">Confirm & Generate</button>
+      </div>
+    </form>
   </div>
 </div>
-
-<!-- DISPLAY BILL DETAILS -->
-<!-- <div class="bill-summary" *ngIf="billDetails">
-  <h3>Bill Generated Successfully!</h3>
-  <p>Bill ID: {{ billDetails.billId }}</p>
-  <p>Customer: {{ billDetails.customer.name }}</p>
-  <p>Amount: {{ billDetails.finalAmount }}</p>
-  <p>Status: {{ billDetails.paymentStatus }}</p>
-</div> -->
-  

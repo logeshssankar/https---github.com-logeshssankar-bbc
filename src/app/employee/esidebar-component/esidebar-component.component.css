@@ -9,7 +9,7 @@
     left: 0;
     top: 0;
     overflow: hidden;
-    z-index: 1000; /* Ensures it's above content */
+    z-index: 1000; 
 }
 
 .sidebar.closed {
@@ -79,7 +79,6 @@
     color: gray;
 }
 
-/* Toggle Button - Keep in Place */
 .toggle-btn {
     position: absolute;
     top: 5px;
@@ -89,7 +88,7 @@
     font-size: 24px;
     cursor: pointer;
     transition: left 0.3s ease-in-out;
-    z-index: 1100; /* Ensures it's above everything */
+    z-index: 1100; 
 }
 
 .toggle-btn:hover{
@@ -100,32 +99,14 @@
     left: 20px;
 }
 
-.logout-btn {
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px;
-    background: red;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.logout-btn:hover {
-    background: darkred;
-}
-
-/* Main Content - Stay Fixed */
 .main-content {
-    margin-left: 0; /* Ensure it does not shift */
+    margin-left: 0; 
     transition: margin-left 0.3s ease-in-out;
     padding: 20px;
 }
 
 .sidebar.open ~ .main-content {
-    margin-left: 0; /* Keep content fixed */
+    margin-left: 0;
 }
 
 .company-name {

@@ -1,25 +1,34 @@
 <app-esidebar-component></app-esidebar-component>
-<div class="top-bar">
-    <!-- Export Button -->
+
+<div class="top-toolbar">
+   
+  <div class="upload-section">
     <input type="file" #fileInput (change)="uploadFile($event)" hidden>
-<button (click)="fileInput.click()" class="upload-btn">
-  <i class="fas fa-upload"></i> Upload File
-</button>
+    <button (click)="fileInput.click()" class="upload-btn">
+      <i class="fas fa-upload"></i> Upload File
+    </button>
+  </div>
 
-    
+  <div class="search-section">
+    <i class="fas fa-search"></i>
+    <input type="text" class="search-input" placeholder="Search" [(ngModel)]="searchQuery" />
+  </div>
 
-    <!-- Search Input -->
-    <input 
-      type="text" 
-      class="search-input" 
-      placeholder="Search Invoice" 
-      [(ngModel)]="searchQuery">
-
-    <!-- Add User Button -->
+  <div class="add-customer-section">
     <button class="add-user-btn" (click)="addCustomer()">ADD CUSTOMER</button>
+  </div>
 
+  <div class="user-profile">
+    <div class="user-info">
+      <strong>{{ userName || 'Guest' }}</strong>
+      <span>ID: {{ userId || 'N/A' }}</span>
+    </div>
+    <img src="../../../..//public/image/user.png" alt="User Profile" />
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
 </div>
-<!-- Update Form Modal -->
+
+
 <div *ngIf="selectedCustomer" class="modal-overlay">
   <div class="modal">
     <h3 style="text-align: center;">Update Customer</h3>
@@ -31,12 +40,12 @@
     <label>Units Consumed: <input [(ngModel)]="selectedCustomer.unit_consumed"></label>
     <label>Bill Amount: <input [(ngModel)]="selectedCustomer.bill_amount"></label>
 
-    <!-- 📅 Date Picker for Due Date -->
+    
     <label>Due Date:
       <input type="date" [(ngModel)]="selectedCustomer.bill_due_date">
     </label>
 
-    <!-- ✅ Dropdown for Status -->
+ 
     <label>Status:
       <select [(ngModel)]="selectedCustomer.payment_status">
         <option value="Paid">Paid</option>
@@ -51,7 +60,6 @@
   </div>
 </div>
 
-<!-- Table with Update Button -->
 <table class="customer-table">
   <thead>
     <tr>
@@ -61,32 +69,24 @@
       <th>Phone</th>
       <th>Location</th>
       <th>Units Consumed</th>
-      <!-- <th>Bill Amount</th>
-      <th>Due Date</th>
-      <th>Status</th> -->
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let customer of customers">
+    <tr *ngFor="let customer of filteredCustomers" (click)="selectCustomerUpdate(customer)">
+    <tr *ngFor="let customer of paginatedCustomers" (click)="selectCustomerUpdate(customer)">
+
       <td>{{ customer.customer_id }}</td>
       <td>{{ customer.name }}</td>
       <td>{{ customer.email }}</td>
       <td>{{ customer.phone_number }}</td>
       <td>{{ customer.location }}</td>
       <td>{{ customer.unit_consumed }}</td>
-      <!-- <td>{{ customer.bill_amount }}</td>
-      <td>{{ customer.bill_due_date | date }}</td>
       <td>
-        <span [ngClass]="{'paid': customer.payment_status === 'Paid', 'unpaid': customer.payment_status === 'Unpaid'}">
-          {{ customer.payment_status }}
-        </span>
-      </td> -->
-      <td>
-        <button class="action-btn update" (click)="selectCustomerForUpdate(customer)">
+        <button class="action-btn update" (click)="selectCustomerForUpdate(customer);$event.stopPropagation()">
           <i class="fas fa-edit"></i>
         </button>
-        <button class="action-btn delete" (click)="deleteCustomer(customer.customer_id)">
+        <button class="action-btn delete" (click)="deleteCustomer(customer.customer_id);$event.stopPropagation()">
           <i class="fas fa-trash-alt"></i>
         </button>
       </td>
@@ -94,8 +94,61 @@
   </tbody>
 </table>
 
+<!-- <div class="pagination">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
 
-<!-- Add Customer Modal (Shows when selectedCustomer is empty) -->
+  <button 
+    *ngFor="let page of [].constructor(totalPages); let i = index" 
+    (click)="goToPage(i + 1)"
+    [class.active]="currentPage === i + 1">
+    {{ i + 1 }}
+  </button>
+
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div> -->
+<div class="pagination">
+  <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+</div>
+
+
+
+
+<div *ngIf="selectedCustomerForCard" class="profile-card">
+  <div class="card">
+    <button class="close-btn" (click)="selectedCustomerForCard = null">X</button>
+    <img src="../../../..//public/image/user.png" alt="User Photo" class="profile-img">
+
+    <h3>{{ selectedCustomerForCard.name }}</h3>
+
+    <div class="stats">
+      <div><i class="fas fa-tasks"></i> {{ selectedCustomerForCard.unit_consumed }} Units</div>
+      <div><i class="fas fa-rupee-sign"></i> ₹{{ selectedCustomerForCard.bill_amount }}</div>
+    </div>
+
+    <div class="details">
+      <p><strong>Email:</strong> {{ selectedCustomerForCard.email }}</p>
+      <p><strong>Phone:</strong> {{ selectedCustomerForCard.phone_number }}</p>
+      <p><strong>Location:</strong> {{ selectedCustomerForCard.location }}</p>
+      <p><strong>Due Date:</strong> {{ selectedCustomerForCard.bill_due_date | date }}</p>
+      <p><strong>Status:</strong> 
+        <span [ngClass]="{'paid': selectedCustomerForCard.payment_status === 'Paid', 'unpaid': selectedCustomerForCard.payment_status === 'Unpaid'}">
+          {{ selectedCustomerForCard.payment_status }}
+        </span>
+      </p>
+    </div>
+    
+    <button class="edit-btn" (click)="editCustomer(selectedCustomerForCard)">Edit</button>
+
+  </div>
+</div>
+
+
+
+
 <div *ngIf="selectedCustomer && !selectedCustomer.customer_id" class="modal-overlay">
   <div class="modal">
     <h3 style="text-align: center;">Add Customer</h3>
@@ -107,12 +160,11 @@
     <label>Units Consumed: <input type="number" [(ngModel)]="selectedCustomer.unit_consumed"></label>
     <label>Bill Amount: <input type="number" [(ngModel)]="selectedCustomer.bill_amount"></label>
 
-    <!-- 📅 Date Picker for Due Date -->
     <label>Due Date:
       <input type="date" [(ngModel)]="selectedCustomer.bill_due_date">
     </label>
 
-    <!-- ✅ Dropdown for Status -->
+    
     <label>Status:
       <select [(ngModel)]="selectedCustomer.payment_status">
         <option value="Paid">Paid</option>

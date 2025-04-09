@@ -1,18 +1,17 @@
-/* 🌟 Full Page Styling */
+
 .bg {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 90.8vh;
-  background: linear-gradient(135deg, #4A90E2, #D13438); /* Deep Blue Gradient */
+  background: linear-gradient(135deg, #4A90E2, #D13438); 
   font-family: 'Poppins', sans-serif;
   padding: 20px;
 }
 
-/* 🏢 Login Card */
 .login-card {
-  background: rgba(255, 255, 255, 0.2); /* Slight Transparency */
+  background: rgba(255, 255, 255, 0.2); 
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
@@ -22,7 +21,6 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* 📝 Headings */
 h2 {
   font-size: 24px;
   font-weight: bold;
@@ -32,7 +30,6 @@ h2 {
   letter-spacing: 1px;
 }
 
-/* 🔲 Input Fields */
 input[type="text"], input[type="email"] {
   width: 80%;
   padding: 13px;
@@ -44,16 +41,15 @@ input[type="text"], input[type="email"] {
   color: white;
   text-align: left;
   outline: none;
-  margin-bottom: 20px; /* Added spacing between inputs */
+  margin-bottom: 20px; 
 }
-
 
 label {
   display: block;
   font-size: 16px;
   font-weight: bold;
   color: white;
-  margin-bottom: 8px; /* Space between label and input */
+  margin-bottom: 8px; 
 }
 
 
@@ -62,7 +58,6 @@ input::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* 🔘 Buttons */
 .verify-btn, .otp-btn {
   width: 50%;
   background: #ff4b2b;
@@ -73,14 +68,13 @@ input::placeholder {
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  margin-top: 20px; /* More space above button */
+  margin-top: 20px; 
 }
 
 .verify-btn:hover, .otp-btn:hover {
   background: #ff3a1b;
 }
 
-/* 🔳 OTP Input Fields */
 .otp-container {
   display: flex;
   justify-content: center;
@@ -100,7 +94,7 @@ input::placeholder {
   color: white;
 }
 
-/* 📱 Responsive Design */
+
 @media (max-width: 480px) {
   .login-card {
       padding: 30px;

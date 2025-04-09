@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { EsidebarComponentComponent } from "../esidebar-component/esidebar-component.component";
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { validateHeaderName } from 'http';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-billing',
-  imports: [EsidebarComponentComponent,CommonModule,FormsModule],
+  imports: [EsidebarComponentComponent,CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './billing.component.html',
   styleUrl: './billing.component.css'
 })
@@ -34,6 +36,16 @@ export class BillingComponent {
       billingEnd: [''],
       billDueDate: [''],
     });
+
+    this.billForm.get('unitConsumed')?.valueChanges.subscribe(() => {
+      this.calculateBillAmount();
+    });
+    
+    this.billForm.get('billingStart')?.valueChanges.subscribe(() => {
+      this.setBillingEnd();
+      this.setDueDate();
+    });
+    
   }
 
   openForm() {
@@ -46,7 +58,7 @@ export class BillingComponent {
   }
 
   fetchCustomerDetails() {
-    const customerId = this.billForm.get('customerId')?.value; // Use FormGroup correctly
+    const customerId = this.billForm.get('customerId')?.value; 
   
     if (!customerId) {
       alert('Please enter a Customer ID.');
@@ -58,11 +70,6 @@ export class BillingComponent {
         if (customer) {
           this.billForm.patchValue({
             customerName: customer.name,
-            unitConsumed: customer.unit_consumed,
-            billAmount: (customer.unit_consumed * 41.50).toFixed(2),
-            // billingStart: customer.billing_start,
-            // billingEnd: customer.billing_end,
-            billDueDate: customer.bill_due_date,
           });
         } else {
           alert('Customer not found!');
@@ -73,30 +80,80 @@ export class BillingComponent {
       }
     );
   }
-  
 
+  calculateBillAmount() {
+    const unitConsumed = parseFloat(this.billForm.get('unitConsumed')?.value);
+    if (!isNaN(unitConsumed)) {
+      const billAmount = (unitConsumed * 41.50).toFixed(2);
+      this.billForm.patchValue({ billAmount });
+    }
+  }
 
-  generateBill() {
-    const customerId = this.billForm.value.customerId;
-  
-    this.http.post<any>(`http://localhost:9090/bills/generate/${customerId}`, {}).subscribe(
-      (response) => {
-        this.billDetails = response;
-        this.toastr.success('Bill Generated Successfully!');
-      },
-      (error) => {
-        const errorMessage = error?.error?.message || error?.error || 'Error generating bill!';
-        
-        if (errorMessage.includes("Bill is already generated")) {
-          this.toastr.warning('Bill is already generated for this customer!');
-        } else {
-          this.toastr.error(errorMessage);
-        }
-      }
-    );
+  setDueDate() {
+    const endDate = this.billForm.get('billingStart')?.value;
+    if (endDate) {
+      const end = new Date(endDate);
+      end.setDate(end.getDate() + 10);
+      const dueDate = end.toISOString().split('T')[0]; 
+      this.billForm.patchValue({ billDueDate: dueDate });
+    }
+  }
+
+  setBillingEnd() {
+    const startDate = this.billForm.get('billingStart')?.value;
+    if (startDate) {
+      const start = new Date(startDate);
+      start.setDate(start.getDate() + 30);
+      const endDate = start.toISOString().split('T')[0];
+      this.billForm.patchValue({ billingEnd: endDate });
+    }
   }
   
 
+  generateBill() {
+    if (!this.billForm.valid) {
+      this.toastr.warning("Please complete all required fields.");
+      return;
+    }
+  
+    const payload = {
+      customerId: this.billForm.value.customerId,
+      unitConsumed: this.billForm.value.unitConsumed,
+      billingStart: this.billForm.value.billingStart
+    };
+  
+    this.http.post<any>('http://localhost:9090/bills/generate', payload).subscribe(
+      (response) => {
+        this.billDetails = response;
+
+        const billingEnd = this.formatDate(response.billingEnd);
+        const billDueDate = this.formatDate(response.billDueDate);
+  
+        this.billForm.patchValue({
+          customerName: response.customer.name,
+          billAmount: response.billAmount,
+          billingEnd: billingEnd,
+          billDueDate: billDueDate
+        });
+  
+        this.toastr.success('Bill Generated Successfully!');
+        console.log("Bill generated: ", response);
+
+        this.closeForm;
+
+      },
+      (error) => {
+        const msg = error?.error?.message || "Error generating bill";
+        this.toastr.error(msg);
+      }
+    );
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  }
+  
   ngOnInit() {
     this.loadUserDetails();
 
@@ -105,6 +162,11 @@ export class BillingComponent {
   loadUserDetails() {
     this.userId = this.authService.getUserId();
     this.userName = this.authService.getUserName();
+  }
+
+  logout() {
+    this.authService.logout(); 
+    window.location.href = '/login'; 
   }
 
 }

@@ -8,11 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './esidebar-component.component.css'
 })
 export class EsidebarComponentComponent {
-logout() {
-throw new Error('Method not implemented.');
-}
-  isOpen = false; // For animation
 
+  isOpen = false; 
+  
   toggleSidebar() {
     this.isOpen = !this.isOpen;
   }

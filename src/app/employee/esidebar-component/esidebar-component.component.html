@@ -1,11 +1,8 @@
 <div class="sidebar" [class.closed]="!isOpen">
-    <!-- Logo & Company Name -->
     <div class="logo">
         <img src="../../../..//public/image/icon.png" alt="Logo"/>
         <h3 class="company-name" *ngIf="isOpen">Bharat Bijili Corporation</h3>
     </div>
-
-    <!-- Menu Items -->
     <ul class="menu">
         <li>
             <a href="/userdashboard">
@@ -20,7 +17,6 @@
         <li>
             <a href="/transaction">
                 <span class="icon"></span> <span class="text" *ngIf="isOpen">Transactions</span>
-                <!-- /<span class="badge" *ngIf="isOpen"></span> -->
             </a>
         </li>
         <li>
@@ -33,11 +29,7 @@
                 <span class="icon"></span> <span class="text" *ngIf="isOpen">Customers</span>
             </a>
         </li>
-    </ul>
-
-    <!-- Logout Button -->
-    <button class="logout-btn" *ngIf="isOpen" (click)="logout()">Logout</button>
+    </ul>    
 </div>
 
-<!-- Toggle Button (Outside Sidebar) -->
 <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
