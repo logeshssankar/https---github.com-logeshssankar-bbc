@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { EsidebarComponentComponent } from "../esidebar-component/esidebar-component.component";
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-customer-mng',
   standalone:true,
@@ -39,7 +42,7 @@ export class CustomerMngComponent implements OnInit{
   
 
 
-  constructor(private http: HttpClient,private authService: AuthService) {}
+  constructor(private http: HttpClient,private toastr: ToastrService,private authService: AuthService) {}
 
   ngOnInit() {
     this.fetchCustomers();
@@ -126,6 +129,19 @@ saveCustomer() {
 }
 
 
+// uploadFile(event: any) {
+//   const file = event.target.files[0];
+//   if (!file) return;
+
+//   const formData = new FormData();
+//   formData.append("file", file);
+
+//   this.http.post('http://localhost:9090/customer/upload', formData)
+//     .subscribe({
+//       next: (res:any) => alert('File uploaded successfully!'),
+//       error: err => console.error('Error uploading file:', err)
+//     });
+// }
 uploadFile(event: any) {
   const file = event.target.files[0];
   if (!file) return;
@@ -133,12 +149,72 @@ uploadFile(event: any) {
   const formData = new FormData();
   formData.append("file", file);
 
-  this.http.post('http://localhost:9090/customer/upload', formData)
-    .subscribe({
-      next: (res:any) => alert('File uploaded successfully!'),
-      error: err => console.error('Error uploading file:', err)
-    });
+  this.http.post('http://localhost:9090/customer/upload', formData).subscribe({
+    next: (res: any) => {
+      const correctCount = res.correctCount || 0;
+      const rejectCount = res.rejectCount || 0;
+      const rejectedRecords = res.rejectedRecords || [];
+
+      if (res.success && rejectCount === 0) {
+       
+        this.toastr.success('All records uploaded successfully!', 'Success');
+        this.fetchCustomers(); 
+      } else if (!res.success && rejectCount > 0) {
+     
+        this.toastr.error('All records rejected!', 'Upload Failed');
+        this.generatePDF(rejectedRecords);
+      } else if (res.success && rejectCount > 0) {
+        
+        this.toastr.warning(`${correctCount} records uploaded, ${rejectCount} rejected.`, 'Partial Success');
+        this.generatePDF(rejectedRecords);
+        this.fetchCustomers(); 
+      }
+    },
+    error: err => {
+      console.error('Error uploading file:', err);
+      this.toastr.error('File upload failed. Try again.', 'Error');
+    }
+  });
 }
+
+generatePDF(data: any[]) {
+  const doc = new jsPDF();
+
+  const headers = Object.keys(data[0] || {}).map(key => key.toUpperCase());
+  const body = data.map(row =>
+    headers.map(h => String(row[h.toLowerCase()] ?? ""))
+  );
+
+  autoTable(doc, {
+    head: [headers],
+    body: body,
+    startY: 20,
+    margin: { top: 20, left: 10, right: 10 },
+    styles: {
+      fontSize: 6.5,
+      cellPadding: 1.5,
+      overflow: 'linebreak',
+      valign: 'middle',
+      halign: 'center', 
+    },
+    headStyles: {
+      fillColor: [0, 102, 204],  
+      textColor: [255, 255, 255], 
+      fontStyle: 'bold',
+      halign: 'center',
+    },
+    bodyStyles: {
+      textColor: [0, 0, 0],
+    },
+    didDrawPage: function (data) {
+      doc.setFontSize(8);
+      doc.text("Rejected Records Report", 10, 10);
+    },
+  });
+
+  doc.save('Rejected_Records_Styled.pdf');
+}
+
 editCustomer(customer: any) {
   this.selectedCustomer = { ...customer };
   
@@ -153,7 +229,6 @@ selectCustomerUpdate(customer: any) {
     }
   }, 100);
 }
-
 
 get filteredCustomers() {
   const query = this.searchQuery.toLowerCase();

@@ -11,6 +11,15 @@
         <button class="search-btn">🔍</button>
     </div>
 
+    <div class="filter-bar">
+      <select [(ngModel)]="statusFilter" class="filter-select">
+        <option value="">All</option>
+        <option value="Paid">Paid</option>
+        <option value="Unpaid">Unpaid</option>
+        <option value="Overdue">Overdue</option>
+      </select>
+    </div>
+    
          <div class="profile">
     <div class="user-info">
         <strong>{{ userName ? userName : 'Guest' }}</strong>

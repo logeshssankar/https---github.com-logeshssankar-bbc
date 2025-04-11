@@ -15,6 +15,7 @@ export class InvoicesComponent  implements OnInit {
 
   invoices: any[] = [];
   searchText: string = '';
+  statusFilter: string = '';
 
 
   userId: string | null = '';
@@ -57,10 +58,24 @@ export class InvoicesComponent  implements OnInit {
 
   filteredInvoices(): any[] {
     const lowerSearch = this.searchText.toLowerCase();
-    return this.invoices.filter(invoice =>
-      invoice.customerName.toLowerCase().includes(lowerSearch) ||
-      invoice.customerId.toString().includes(this.searchText)
-    );
+  
+    return this.invoices.filter(invoice => {
+      const matchesSearch =
+        invoice.customerName.toLowerCase().includes(lowerSearch) ||
+        invoice.customerId.toString().includes(this.searchText);
+  
+      const isOverdue =
+        invoice.paymentStatus !== 'Paid' &&
+        new Date(invoice.billDueDate) < new Date();
+  
+      const matchesFilter =
+        this.statusFilter === '' ||
+        (this.statusFilter === 'Paid' && invoice.paymentStatus === 'Paid') ||
+        (this.statusFilter === 'Unpaid' && invoice.paymentStatus !== 'Paid' && !isOverdue) ||
+        (this.statusFilter === 'Overdue' && isOverdue);
+  
+      return matchesSearch && matchesFilter;
+    });
   }  
   removeInvoice(billId: number): void {
     if (confirm('Are you sure you want to remove this invoice?')) {

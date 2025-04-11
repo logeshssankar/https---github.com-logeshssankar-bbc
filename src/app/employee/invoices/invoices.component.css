@@ -115,7 +115,7 @@ body {
 }
 
 .status.Paid {
-  background: #2e7d32;
+  background: #006A71;
   color: white;
 }
 
@@ -313,3 +313,24 @@ body {
     margin-top: 10px;
   }
 }
+
+
+.filter-bar {
+  position: absolute;
+  top: 22px;
+  right: 300px;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 12px;
+  border: 1px solid #48A6A7;
+  background-color: #F2EFE7;
+  color: #006A71;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
